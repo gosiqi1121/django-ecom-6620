@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+<h1>{{ product.title }}</h1>
+<div class="row">
+    <div class="col-md-8">
+        <img src="{% static product.image %}" alt="" width="100%">
+        {% static product.image %}
+    </div>
+    <div class="col-md-4">
+        <h5>About the product:</h5>
+        <p>{{ product.description }}</p>
+        <br>
+        <h5>Technology used:</h5>
+        <p>{{ product.technology }}</p>
+        
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+
+
+<div class="container">
+    <h1>Cart</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="main-box clearfix">
+                <form method="POST" action="{% url 'save_cart'%}" role="form">
+                    {% csrf_token %}
+                    <div class="table-responsive">
+                        <table class="table user-list">
+                            <thead>
+                            <tr>
+                                <th><span>Product</span></th>
+                                <th><span>Price</span></th>
+                                <th><span>Qty</span></th>
+                                <th><span></span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {%for item in cart%}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'product_detail' item.product.pk%}" class="user-link">{{item.product.title}}</a>
+                                </td>
+                                <td>
+                                    $ {{item.product.price}}
+                                </td>
+                                <td class="text-center">
+                                    <div class="form-outline w-25">
+                                        <input type="hidden" name="product_pk" value="{{item.product.pk}}">
+                                        <input name="qty" min="1" type="number" id="typeNumber" class="form-control" value="{{item.qty}}"/>                                    
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <a
+                                        href="{% url 'cart_delete' item.product.pk%}"
+                                        class="text-danger"
+                                        data-toggle="tooltip"
+                                        title=""
+                                        data-original-title="Delete"
+                                        ><i class="far fa-trash-alt"></i>
+                                    </a>
+                                </td>
+
+                                
+                                
+                            </tr>
+                            
+                            {% endfor %}
+                            <tr><h4 class="m-3">total:  ${{total}}</h4></tr>
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" type="submit">Save</button>
+                    </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

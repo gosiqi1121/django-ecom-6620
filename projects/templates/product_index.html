@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+<h1>Products</h1>
+<div class="row">
+    {% for product in products %}
+    <div class="col-md-4">
+        <div class="card mb-2">
+            <img class="card-img-top" src="{% static product.image %}">
+
+            <div class="card-body">
+                <h5 class="card-title">{{ product.title }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+                <div class="row">
+                    <div class="col-3">
+                        <a href="{% url 'product_detail' product.pk %}"
+                        class="btn btn-secondary">
+                            Details
+                        </a>
+                    </div>
+                    <div class="col-3">
+                        <form method="POST" action="{% url 'add_to_cart' product.pk %}" role="form">
+                            {% csrf_token %}
+                            <button class="btn btn-primary" type="submit">Add to cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}    
+</div>
+{% endblock %}
